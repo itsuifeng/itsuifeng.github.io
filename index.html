@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						
+						<a href="/tags/windows/" style="font-size: 10px;">windows</a>
 					</div>
 				</section>
 				
@@ -201,11 +201,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-如何查看windows文件-文件夹占用进程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/06/06/hello-world/" class="article-date">
-  	<time datetime="2015-06-05T17:37:32.705Z" itemprop="datePublished">2015-06-06</time>
+      <a href="/2015/06/06/如何查看windows文件-文件夹占用进程/" class="article-date">
+  	<time datetime="2015-06-06T07:12:31.000Z" itemprop="datePublished">2015-06-06</time>
 </a>
     </div>
   
@@ -218,7 +218,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/06/hello-world/">Hello World</a>
+      <a class="article-title" href="/2015/06/06/如何查看windows文件-文件夹占用进程/">如何查看windows文件/文件夹占用进程</a>
     </h1>
   
 
@@ -227,21 +227,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <hr>
+<p>很多情况下，我会遇到在删除windows系统下某个文件或文件夹时，系统提示我该文件或文件夹被其它进程占用，从而无法删除该文件。也许你会尝试安装一些其它辅助软件（比如<span style="color:red">流氓360软件、XX卸载大师</span>），反正我觉得这个实在是太重量级了，况且我根本不想安装这些XX软件。那么到底还有没有其它更加方便的方法可以让我找到是哪一个进程占用了该文件呢？</p>
+<blockquote>
+<ol>
+<li>右键 - Windows 7任务栏 - 启动任务管理器 - 性能 - 资源监视器；</li>
+<li>在控制台中点击“CPU”标签定位到该标签页下；</li>
+<li>在“关联的句柄”右侧的搜索框中输入“test”，此时系统会自动搜索与test句柄相关联的系统进程；</li>
+<li>可以看到搜索到的进程为cmd.exe。cmd.exe进程正在调用test文件夹，才造成了对该文件夹删除的失败。右键单击该进程，然后选择“结束进程”命令弹出警告对话框，确认后即可结束cmd.exe进程。最后，删除test文件夹，可以看到该文件夹被成功删除。</li>
+</ol>
+</blockquote>
 
       
     </div>
     
     <div class="article-info article-info-index">
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+	</div>
+
       
 
       
