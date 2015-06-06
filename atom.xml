@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title><![CDATA[Sanly's Blog]]></title>
-  <subtitle><![CDATA[sanly's daily blog]]></subtitle>
+  <subtitle><![CDATA[单身程序员一枚]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://itsuifeng.github.io//"/>
   <updated>2015-06-05T17:37:32.705Z</updated>
   <id>https://itsuifeng.github.io//</id>
   
   <author>
-    <name><![CDATA[sanly]]></name>
+    <name><![CDATA[Sanly]]></name>
     
   </author>
   
