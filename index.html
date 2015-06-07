@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/windows/" style="font-size: 10px;">windows</a>
+						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
 					</div>
 				</section>
 				
@@ -200,6 +200,75 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Java利器之-native加载" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/07/Java利器之-native加载/" class="article-date">
+  	<time datetime="2015-06-07T05:22:06.000Z" itemprop="datePublished">2015-06-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/07/Java利器之-native加载/">Java利器之-native加载</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>Java项目中有时候会涉及到一些第三方native调用，加载动态链接库(.dll、.so)文件经常会遇到一些错误，如无法加载，如何解决这个问题呢？</p>
+<hr>
+<ol>
+<li>通过JVM启动参数设定<code>java -Djava.library.path=c：/naitve</code></li>
+<li>在代码中设定<code>System.setProperty(&quot;java.library.path&quot;, &quot;c:/native&quot;);</code>(<font color="red">错误</font>);</li>
+<li>利用反射机制注入库路劲，调用编写好的类<code>ClassPathTool.addToClassPath(&quot;c:/native&quot;)</code>实现。</li>
+</ol>
+<hr>
+<ul>
+<li><p>第一种方式是可以正确设置库文件加载路径的，程序能够正常运行；</p>
+</li>
+<li><p>第二种方式是不行的，java.library.path只有在JVM启动时候读取一次，因此使用第二种方式无法生效；</p>
+</li>
+<li>第三种方式通过反射机制注入库路径，能按照我的想法正常运行，以下是如何实现。</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ClassPathTool</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	public <span class="literal">static</span> <span class="keyword">void</span> addToClassPath(File classPathFile) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Field field = ClassLoader.<span class="keyword">class</span>.getDeclaredField(<span class="string">"usr_paths"</span>);</span><br><span class="line">			field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="built_in">Object</span> obj = field.<span class="literal">get</span>(<span class="keyword">null</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; list = <span class="keyword">new</span> ArrayList&lt;<span class="built_in">String</span>&gt;(Arrays.asList(((<span class="built_in">String</span>[]) obj)));</span><br><span class="line">			list.add(classPathFile.getAbsolutePath());</span><br><span class="line">			<span class="keyword">for</span>(File f : classPathFile.listFiles()) &#123;</span><br><span class="line">				list.add(f.getAbsolutePath());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">String</span>[] arr = <span class="keyword">new</span> <span class="built_in">String</span>[<span class="number">0</span>];</span><br><span class="line">			field.<span class="literal">set</span>(<span class="keyword">null</span>, (<span class="built_in">String</span>[]) list.toArray(arr));</span><br><span class="line">		&#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SecurityException e) &#123;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-如何查看windows文件-文件夹占用进程" class="article article-type-post" itemscope itemprop="blogPost">
   
