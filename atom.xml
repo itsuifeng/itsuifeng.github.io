@@ -100,4 +100,38 @@
     
   </entry>
   
+  <entry>
+    <title><![CDATA[利用hexo、markdown、git在github上建立自己的博客]]></title>
+    <link href="https://itsuifeng.github.io/2015/06/05/%E5%88%A9%E7%94%A8hexo%E3%80%81markdown%E3%80%81git%E5%9C%A8github%E4%B8%8A%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://itsuifeng.github.io/2015/06/05/利用hexo、markdown、git在github上建立自己的博客/</id>
+    <published>2015-06-05T07:26:01.000Z</published>
+    <updated>2015-06-07T07:55:06.631Z</updated>
+    <content type="html"><![CDATA[<hr>
+<p>搭建个人博客的方式其实有很多种，尤其是对于程序员而言甚至可以自己写一套博客程序，可以选择的平台其实也非常多，著名的WordPress就是一个，我曾经在大学期间倒腾过WordPress，WordPress是一个很优秀、具有大量用户但也十分臃肿的系统，不仅需要关注写作，还需要倒腾各种五花八门的插件、管理维护MySQL数据库，总之来言对于经历有限的我而言，我选择放弃。直到最近又萌生了写博客的想法，选择了程序员中使用最为流行的github pages服务来提供个人博客支持，倒腾过WordPress之后遇到它，我不得不说使用起来非常方便。</p>
+<hr>
+<h6 id="介绍一下Windows平台搭建环境使用到的工具：">介绍一下Windows平台搭建环境使用到的工具：</h6><ul>
+<li>TortoiseGit （版本控制软件，用途： 检出、提交代码）</li>
+<li>MarkdwownPad2  （写作软件， 用途： 一种类似html语法的编辑器、主要用于写作、排版）</li>
+<li>nodejs （服务器端的JavaScript编译、运行环境， 用途： 编译、运行node程序）</li>
+<li>hexo （一款node程序，用途：基于主题编译markdown生成html、支持发布到github）</li>
+</ul>
+<hr>
+<h6 id="个人使用习惯">个人使用习惯</h6><ol>
+<li>cmd&gt; hexo new 文章名称 （创建一篇新文章）</li>
+<li>利用MarkdwownPad2编辑创建的新文章 （开始写作）</li>
+<li>cmd&gt; hexo g  （编译markdwon生成html)</li>
+<li>cmd&gt; hexo d  （部署生成的html）</li>
+<li>cmd&gt; git push （将生成的html推送到github）</li>
+<li>访问<a href="https://itsufieng.github.io" target="_blank" rel="external">https://itsufieng.github.io</a> (查看实时变更）</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<p>搭建个人博客的方式其实有很多种，尤其是对于程序员而言甚至可以自己写一套博客程序，可以选择的平台其实也非常多，著名的WordPress就是一个，我曾经在大学期间倒腾过WordPress，WordPress是一个很优秀、具有大量用户但也十分臃肿的系统，不仅需要关注写作]]>
+    </summary>
+    
+      <category term="github" scheme="https://itsuifeng.github.io/tags/github/"/>
+    
+  </entry>
+  
 </feed>
