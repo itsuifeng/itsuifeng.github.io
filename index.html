@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+						<a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/操作系统/" style="font-size: 10px;">操作系统</a>
 					</div>
 				</section>
 				
@@ -201,6 +201,74 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-国产化之-龙芯CPU上趟过的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/08/国产化之-龙芯CPU上趟过的坑/" class="article-date">
+  	<time datetime="2015-06-08T15:45:30.000Z" itemprop="datePublished">2015-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/08/国产化之-龙芯CPU上趟过的坑/">国产化之-龙芯CPU上趟过的坑</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://www.loongson.cn/images/BANNER3.jpg" alt="龙芯"></p>
+<hr>
+<p>最近公司一直忙于将两个安全产品迁移部署到国产操作系统、国产数据库上，整个迁移过程，趟坑无数，依然存在许多问题亟需解决。龙芯为支持Java，针对OpenJDK（不是Oracle JDK）做了部分了修改，导致应用部署上去出现很多兼容性问题。</p>
+<hr>
+<ul>
+<li>jdk1.8的版本，swing组件花屏；</li>
+<li>麦克风录音时，直接抛异常（还好其中部分jdk1.6版本不存在此问题）；</li>
+<li>Apache Derby数据库打开时，因无法读取数据库日志文件抛异常；</li>
+<li>jdk1.7版本在龙芯CPU上完全是鸡肋，整个应用跑起来非常吃力，吐血的慢，而应用基于Oracle jdk1.7版本编译，无法在jdk1.6运行，不得不重新编译到1.6版本；</li>
+<li>后续持续问题…</li>
+</ul>
+<hr>
+<p><strong>感受：</strong> </p>
+<blockquote>
+<p>国产化道路任重而道远<br>革命尚未成功，同志仍需努力<br>路漫漫其修远兮，吾将上下而求索</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-工欲善其事，必先利其器之-MySQL优化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -237,7 +305,7 @@
 </ol>
 <hr>
 <h6 id="以下是自己写的一些SQL工具：">以下是自己写的一些SQL工具：</h6><p>— 查看某表、某列的区分度情况<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">AS</span> <span class="string">'不重复记录数'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'总记录数'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) / <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'区分度'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(*) / <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">AS</span> <span class="string">'检索次数'</span></span><br><span class="line"><span class="keyword">FROM</span> table_name</span></span><br></pre></td></tr></table></figure></p>
-<p> — (查询系统表，利用列转行）计算QPS、TPS<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(Questions) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'QPS'</span>,</span><br><span class="line">	(<span class="keyword">SUM</span>(Com_commit) + <span class="keyword">SUM</span>(Com_rollback)) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'TPS'</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Questions'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Questions'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Uptime'</span> 		<span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Uptime'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_commit'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_commit'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_rollback'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_rollback'</span></span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		information_schema.GLOBAL_STATUS</span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		VARIABLE_NAME <span class="keyword">IN</span> (<span class="string">'Questions'</span>, <span class="string">'Uptime'</span>, <span class="string">'Com_commit'</span>, <span class="string">'Com_rollback'</span>)</span><br><span class="line">) <span class="keyword">AS</span> tmp</span></span><br></pre></td></tr></table></figure></p>
+<p> — (查询系统表，利用列转行）计算QPS、TPS<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(Questions) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'QPS'</span>,</span><br><span class="line">	(<span class="keyword">SUM</span>(Com_commit) + <span class="keyword">SUM</span>(Com_rollback)) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'TPS'</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Questions'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Questions'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Uptime'</span> 	<span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Uptime'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_commit'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_commit'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_rollback'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_rollback'</span></span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		information_schema.GLOBAL_STATUS</span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		VARIABLE_NAME <span class="keyword">IN</span> (<span class="string">'Questions'</span>, <span class="string">'Uptime'</span>, <span class="string">'Com_commit'</span>, <span class="string">'Com_rollback'</span>)</span><br><span class="line">) <span class="keyword">AS</span> tmp</span></span><br></pre></td></tr></table></figure></p>
 <p>— 禁止MySQL缓存hack（通过在查询结果集加入时间，避免查询时使用缓存，影响性能分析）<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> t.*, <span class="keyword">now</span>() <span class="keyword">FROM</span> rental t</span></span><br></pre></td></tr></table></figure></p>
 <p>— 禁止MySQL缓存，根据数据库版本，有些时候不灵光<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">BEGIN</span>;</span></span><br><span class="line">	<span class="operator"><span class="keyword">RESET</span> <span class="keyword">QUERY</span> <span class="keyword">CACHE</span>;</span></span><br><span class="line">	<span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SQL_NO_CACHE</span> t.* <span class="keyword">FROM</span> rental t ;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span>;</span></span><br></pre></td></tr></table></figure></p>
 <p>— 强制使用指定的某个索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> t.* <span class="keyword">FROM</span> rental t <span class="keyword">FORCE</span> <span class="keyword">INDEX</span> (index_update_time) </span><br><span class="line">	<span class="keyword">WHERE</span> type = <span class="number">2</span> <span class="keyword">AND</span> update_time &gt; <span class="number">0</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> update_time <span class="keyword">DESC</span>;</span></span><br></pre></td></tr></table></figure></p>
@@ -247,6 +315,10 @@
     
     <div class="article-info article-info-index">
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+	</div>
+
       
 
       

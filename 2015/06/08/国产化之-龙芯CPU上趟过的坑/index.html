@@ -3,17 +3,34 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: windows | Sanly&#39;s Blog</title>
+  <title>国产化之-龙芯CPU上趟过的坑 | Sanly&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录生活、工作、日志">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sanly's Blog">
-<meta property="og:url" content="https://itsuifeng.github.io/tags/windows/index.html">
+  <meta name="description" content="最近公司一直忙于将两个安全产品迁移部署到国产操作系统、国产数据库上，整个迁移过程，趟坑无数，依然存在许多问题亟需解决。龙芯为支持Java，针对OpenJDK（不是Oracle JDK）做了部分了修改，导致应用部署上去出现很多兼容性问题。
+
+
+jdk1.8的版本，swing组件花屏；
+麦克风录音时，直接抛异常（还好其中部分jdk1.6版本不存在此问题）；
+Apache Derby数据库打开时，因无法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国产化之-龙芯CPU上趟过的坑">
+<meta property="og:url" content="https://itsuifeng.github.io/2015/06/08/国产化之-龙芯CPU上趟过的坑/index.html">
 <meta property="og:site_name" content="Sanly's Blog">
-<meta property="og:description" content="记录生活、工作、日志">
+<meta property="og:description" content="最近公司一直忙于将两个安全产品迁移部署到国产操作系统、国产数据库上，整个迁移过程，趟坑无数，依然存在许多问题亟需解决。龙芯为支持Java，针对OpenJDK（不是Oracle JDK）做了部分了修改，导致应用部署上去出现很多兼容性问题。
+
+
+jdk1.8的版本，swing组件花屏；
+麦克风录音时，直接抛异常（还好其中部分jdk1.6版本不存在此问题）；
+Apache Derby数据库打开时，因无法">
+<meta property="og:image" content="http://www.loongson.cn/images/BANNER3.jpg">
+<meta property="og:updated_time" content="2015-06-08T16:14:55.124Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sanly's Blog">
-<meta name="twitter:description" content="记录生活、工作、日志">
+<meta name="twitter:title" content="国产化之-龙芯CPU上趟过的坑">
+<meta name="twitter:description" content="最近公司一直忙于将两个安全产品迁移部署到国产操作系统、国产数据库上，整个迁移过程，趟坑无数，依然存在许多问题亟需解决。龙芯为支持Java，针对OpenJDK（不是Oracle JDK）做了部分了修改，导致应用部署上去出现很多兼容性问题。
+
+
+jdk1.8的版本，swing组件花屏；
+麦克风录音时，直接抛异常（还好其中部分jdk1.6版本不存在此问题）；
+Apache Derby数据库打开时，因无法">
   
     <link rel="alternative" href="/atom.xml" title="Sanly&#39;s Blog" type="application/atom+xml">
   
@@ -199,51 +216,118 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-国产化之-龙芯CPU上趟过的坑" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/06/06/如何查看windows文件-文件夹占用进程/" class="archive-article-date">
-  	<time datetime="2015-06-06T07:12:31.000Z" itemprop="datePublished">6月 6</time>
+    <div class="article-meta">
+      <a href="/2015/06/08/国产化之-龙芯CPU上趟过的坑/" class="article-date">
+  	<time datetime="2015-06-08T15:45:30.000Z" itemprop="datePublished">2015-06-08</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/06/06/如何查看windows文件-文件夹占用进程/">如何查看windows文件/文件夹占用进程</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      国产化之-龙芯CPU上趟过的坑
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://www.loongson.cn/images/BANNER3.jpg" alt="龙芯"></p>
+<hr>
+<p>最近公司一直忙于将两个安全产品迁移部署到国产操作系统、国产数据库上，整个迁移过程，趟坑无数，依然存在许多问题亟需解决。龙芯为支持Java，针对OpenJDK（不是Oracle JDK）做了部分了修改，导致应用部署上去出现很多兼容性问题。</p>
+<hr>
+<ul>
+<li>jdk1.8的版本，swing组件花屏；</li>
+<li>麦克风录音时，直接抛异常（还好其中部分jdk1.6版本不存在此问题）；</li>
+<li>Apache Derby数据库打开时，因无法读取数据库日志文件抛异常；</li>
+<li>jdk1.7版本在龙芯CPU上完全是鸡肋，整个应用跑起来非常吃力，吐血的慢，而应用基于Oracle jdk1.7版本编译，无法在jdk1.6运行，不得不重新编译到1.6版本；</li>
+<li>后续持续问题…</li>
+</ul>
+<hr>
+<p><strong>感受：</strong> </p>
+<blockquote>
+<p>国产化道路任重而道远<br>革命尚未成功，同志仍需努力<br>路漫漫其修远兮，吾将上下而求索</p>
+</blockquote>
+
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/06/08/工欲善其事，必先利其器之-MySQL优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL优化之-工欲善其事，必先利其器</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="国产化之-龙芯CPU上趟过的坑" data-title="国产化之-龙芯CPU上趟过的坑" data-url="https://itsuifeng.github.io/2015/06/08/国产化之-龙芯CPU上趟过的坑/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">
