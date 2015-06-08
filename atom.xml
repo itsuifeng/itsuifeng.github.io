@@ -5,7 +5,7 @@
   <subtitle><![CDATA[单身程序员一枚]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://itsuifeng.github.io//"/>
-  <updated>2015-06-07T07:14:44.700Z</updated>
+  <updated>2015-06-08T15:07:26.888Z</updated>
   <id>https://itsuifeng.github.io//</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[MySQL优化之-工欲善其事，必先利其器]]></title>
+    <link href="https://itsuifeng.github.io/2015/06/08/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%EF%BC%8C%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8%E4%B9%8B-MySQL%E4%BC%98%E5%8C%96/"/>
+    <id>https://itsuifeng.github.io/2015/06/08/工欲善其事，必先利其器之-MySQL优化/</id>
+    <published>2015-06-08T12:39:21.000Z</published>
+    <updated>2015-06-08T15:07:26.888Z</updated>
+    <content type="html"><![CDATA[<hr>
+<p>一开始从开发转数据库，觉得写SQL很简单？后来认识到too young too simple, sometimes naive. 正所谓：“查询容易，优化难，难于上青天。。。”，不过依然可以借助一些辅助工具逐渐入门，记录一些优化方式及心得。</p>
+<hr>
+<ol>
+<li>优化不能漫无目的，海中捞针，自己累不说，工作也没有成效，应结合业务找出性能较差的SQL，一步一步的解决；</li>
+<li>I/O访问永远是数据库性能开销的突出地方，应尽量避免多次I/O访问，也是优化最有效果的地方。（磁盘读取数据靠机械运动，每次读取数据花费的时间包括寻道时间、旋转延迟、传输时间，寻道是磁臂移动到指定磁道所需要的时间，旋转延迟指磁盘转速，传输时间指从磁盘读出或写入磁盘的时间）；</li>
+<li>结合MySQL的查询分析器（explain、profile）慢日志分析工具，反复查看执行计划，新增、修改索引，不断优化SQL；</li>
+</ol>
+<hr>
+<h6 id="以下是自己写的一些SQL工具：">以下是自己写的一些SQL工具：</h6><p>— 查看某表、某列的区分度情况<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">AS</span> <span class="string">'不重复记录数'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'总记录数'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) / <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'区分度'</span>,</span><br><span class="line">	<span class="keyword">COUNT</span>(*) / <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">AS</span> <span class="string">'检索次数'</span></span><br><span class="line"><span class="keyword">FROM</span> table_name</span></span><br></pre></td></tr></table></figure></p>
+<p> — (查询系统表，利用列转行）计算QPS、TPS<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(Questions) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'QPS'</span>,</span><br><span class="line">	(<span class="keyword">SUM</span>(Com_commit) + <span class="keyword">SUM</span>(Com_rollback)) / <span class="keyword">SUM</span>(Uptime) <span class="keyword">AS</span> <span class="string">'TPS'</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Questions'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Questions'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Uptime'</span> 		<span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Uptime'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_commit'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_commit'</span>,</span><br><span class="line">		<span class="keyword">CASE</span> VARIABLE_NAME <span class="keyword">WHEN</span> <span class="string">'Com_rollback'</span> <span class="keyword">THEN</span> VARIABLE_VALUE <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Com_rollback'</span></span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		information_schema.GLOBAL_STATUS</span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		VARIABLE_NAME <span class="keyword">IN</span> (<span class="string">'Questions'</span>, <span class="string">'Uptime'</span>, <span class="string">'Com_commit'</span>, <span class="string">'Com_rollback'</span>)</span><br><span class="line">) <span class="keyword">AS</span> tmp</span></span><br></pre></td></tr></table></figure></p>
+<p>— 禁止MySQL缓存hack（通过在查询结果集加入时间，避免查询时使用缓存，影响性能分析）<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> t.*, <span class="keyword">now</span>() <span class="keyword">FROM</span> rental t</span></span><br></pre></td></tr></table></figure></p>
+<p>— 禁止MySQL缓存，根据数据库版本，有些时候不灵光<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">BEGIN</span>;</span></span><br><span class="line">	<span class="operator"><span class="keyword">RESET</span> <span class="keyword">QUERY</span> <span class="keyword">CACHE</span>;</span></span><br><span class="line">	<span class="operator"><span class="keyword">SELECT</span> <span class="keyword">SQL_NO_CACHE</span> t.* <span class="keyword">FROM</span> rental t ;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>— 强制使用指定的某个索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> t.* <span class="keyword">FROM</span> rental t <span class="keyword">FORCE</span> <span class="keyword">INDEX</span> (index_update_time) </span><br><span class="line">	<span class="keyword">WHERE</span> type = <span class="number">2</span> <span class="keyword">AND</span> update_time &gt; <span class="number">0</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> update_time <span class="keyword">DESC</span>;</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<p>一开始从开发转数据库，觉得写SQL很简单？后来认识到too young too simple, sometimes naive. 正所谓：“查询容易，优化难，难于上青天。。。”，不过依然可以借助一些辅助工具逐渐入门，记录一些优化方式及心得。</p>
+<hr>
+<o]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java利器之-多输出流MutiOutputStream]]></title>
