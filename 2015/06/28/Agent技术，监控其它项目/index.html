@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Agent技术，监控其它项目 | Sanly&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java Agent是一个非常有趣的技术，能够在main函数执行之前由JVM先行执行Agent代理的代码，这样一来。对于我们监控Java应用的性能、统计之类的处理可以编写一个通用或公用的Agent模块，来完成监控处理。
+
+如何使用Java Agent技术，首先我们需要写一个类，该类包含一个函数public static void premain(String agentArguments, Ins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent技术，监控其它项目">
+<meta property="og:url" content="https://itsuifeng.github.io/2015/06/28/Agent技术，监控其它项目/index.html">
+<meta property="og:site_name" content="Sanly's Blog">
+<meta property="og:description" content="Java Agent是一个非常有趣的技术，能够在main函数执行之前由JVM先行执行Agent代理的代码，这样一来。对于我们监控Java应用的性能、统计之类的处理可以编写一个通用或公用的Agent模块，来完成监控处理。
+
+如何使用Java Agent技术，首先我们需要写一个类，该类包含一个函数public static void premain(String agentArguments, Ins">
+<meta property="og:updated_time" content="2015-06-28T08:56:37.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Agent技术，监控其它项目">
+<meta name="twitter:description" content="Java Agent是一个非常有趣的技术，能够在main函数执行之前由JVM先行执行Agent代理的代码，这样一来。对于我们监控Java应用的性能、统计之类的处理可以编写一个通用或公用的Agent模块，来完成监控处理。
+
+如何使用Java Agent技术，首先我们需要写一个类，该类包含一个函数public static void premain(String agentArguments, Ins">
+  
+    <link rel="alternative" href="/atom.xml" title="Sanly&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="http://itsuifeng.github.io/img/head.png" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Sanly</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">单身程序员一枚</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/itsuifeng/" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:itsuifeng@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/操作系统/" style="font-size: 10px;">操作系统</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://wsgzao.github.io/">Hello Dog</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.oschina.net/">开源中国</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://itsuifeng.github.io/">Sanly&#39;s Blog</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zybuluo.com/mdeditor">markdwon在线</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.itechzero.com/google-mirror-sites-collect.html">谷歌镜像站</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.javaspecialists.eu/">javaspeciallist</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://itindex.net/">IT瘾</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://stackoverflow.com/">stackoverflow</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://mysqlblog.fivefarmers.com/">Todd&#39;s MySQL</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">程序员一枚，熟悉Java语言，却从事着数据库的管理、优化工作，目前维护公司两款国产数据库及开源MySQL数据库性能优化，持续关注新兴互联网技术…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Sanly</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://itsuifeng.github.io/img/head.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Sanly</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">单身程序员一枚</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/itsuifeng/" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:itsuifeng@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="学习使用java-Agent技术，监控其它项目" class="article article-type-学习使用java" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/28/Agent技术，监控其它项目/" class="article-date">
+  	<time datetime="2015-06-28T08:48:00.000Z" itemprop="datePublished">2015-06-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Agent技术，监控其它项目
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>Java Agent是一个非常有趣的技术，能够在main函数执行之前由JVM先行执行Agent代理的代码，这样一来。对于我们监控Java应用的性能、统计之类的处理可以编写一个通用或公用的Agent模块，来完成监控处理。</p>
+<hr>
+<p>如何使用Java Agent技术，首先我们需要写一个类，该类包含一个函数public static void premain(String agentArguments, Instrumentation ins) {// put some code here };<br>JVM会在main函数调用之前首先调用该方法，完成一些特定操作。</p>
+<hr>
+<p>so, some code would like this<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sanly.agent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.instrument.Instrumentation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sanly.tail.JConsoleTailerFrame;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TailAgent</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArguments, Instrumentation ins)</span> </span>&#123;</span><br><span class="line">		LogClassTransformer transformer = <span class="keyword">new</span> LogClassTransformer();</span><br><span class="line">		ins.addTransformer(transformer);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">final</span> JConsoleTailerFrame console = <span class="keyword">new</span> JConsoleTailerFrame();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">final</span> IOHandler handler = <span class="keyword">new</span> IOHandler(<span class="keyword">new</span> IOListener() &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">done</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">				console.appendMessage(msg);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		<span class="comment">//MutiOutputStream mos = new MutiOutputStream(System.err, handler.getStream());</span></span><br><span class="line">		</span><br><span class="line">		System.setErr(<span class="keyword">new</span> PrintStream(handler.getStream()));</span><br><span class="line">		</span><br><span class="line">		Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"IOHandler close()..."</span>);</span><br><span class="line">				handler.close();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>从分发挥想象中，未完待续。。。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/06/28/Java树型组件JTree的异步加载/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java树型组件JTree的异步加载</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Agent技术，监控其它项目" data-title="Agent技术，监控其它项目" data-url="https://itsuifeng.github.io/2015/06/28/Agent技术，监控其它项目/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Sanly
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
