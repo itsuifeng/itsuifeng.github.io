@@ -1,78 +1,20 @@
+---
+---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>/Notepad</loc>
+        <loc>{{ site.url }}</loc>
     </url>
     
-    
+    {% for page in site.pages %}
     <url>
-        <loc>/Notepad/404</loc>
+        <loc>{{ site.url }}{{ page.url }}</loc>
     </url>
-    
-    <url>
-        <loc>/Notepad/about/index.html</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/categories/index.html</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/featured/</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/feed.xml</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/links.jsonp</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/search.json</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/sitemap.xml</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/tags/index.html</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/page2/</loc>
-    </url>
-    
+    {% endfor %}
 
-    
+    {% for post in site.posts %}
     <url>
-        <loc>/Notepad/webdevelopment/why-jekyll</loc>
+        <loc>{{ site.url }}{{ post.url }}</loc>
     </url>
-    
-    <url>
-        <loc>/Notepad/personal/introducing-notepad</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/theme/documentation</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/theme/readability-feature-post</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/articles/readability-post</loc>
-    </url>
-    
-    <url>
-        <loc>/Notepad/articles/theme-elements</loc>
-    </url>
-    
+    {% endfor %}
 </urlset>
