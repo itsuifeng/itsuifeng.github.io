@@ -3,7 +3,7 @@ layout: post
 title: "《程序员》杂志约稿"
 description:
 headline:
-modified: 2014-09-19 09:02:10 +0800
+modified: 2016-09-19 09:02:10 +0800
 category: 生活
 tags: [life, docker]
 imagefeature: covers/programmer_cover.jpg
