@@ -15,9 +15,9 @@ end
     task :pro do
       edit_config 'url', '/Notepad'
     end
-  end 
+  end
 
-  # adapted from https://github.com/imathis/octopress/blob/master/Rakefile   
+  # adapted from https://github.com/imathis/octopress/blob/master/Rakefile
   # usage rake new_post['My New Post'] or rake new_post (defaults to "My New Post")
   desc "Start a new post"
   task :new, :title do |t, args|
@@ -29,21 +29,20 @@ end
      post.puts "---"
      post.puts "layout: post"
      post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
-     post.puts "description: "
-     post.puts "headline: "
+     post.puts "description:"
+     post.puts "headline:"
      post.puts "modified: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
-     post.puts "category: personal"
+     post.puts "category:"
      post.puts "tags: []"
-     post.puts "imagefeature: "
-     post.puts "mathjax: "
-     post.puts "chart: "
-     post.puts "comments: true"
+     post.puts "imagefeature:"
+     post.puts "mathjax:"
+     post.puts "chart:"
      post.puts "featured: false"
      post.puts "---"
    end
   end
 
-  # adapted from https://github.com/imathis/octopress/blob/master/Rakefile   
+  # adapted from https://github.com/imathis/octopress/blob/master/Rakefile
   # usage rake new_post['My New Post'] or rake new_post (defaults to "My New Post")
   desc "Start a new page"
   task :newpage, :title do |t, args|
