@@ -1,0 +1,168 @@
+title:            JUST DO IT
+description:      "生活是另一种探险"
+logo:             logo.png
+disqus_shortname: Johnnie Walker
+share:            true
+dropcap:			    true
+baseurl:          "http://itsuifeng.github.io"
+
+# Owner/author information
+owner:
+  name:           Johnnie Walker
+  avatar:         iven.jpg
+  email:          itsuifeng@gmail.com
+  # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
+  description:    Awesome Dude, Awesome Life
+  # Social networking links used in footer. Update and remove as you like.
+  twitter:        Johnnie Walker
+  facebook:       Johnnie Walker
+  github:         itsuifeng
+  #instagram:      ivenvd
+  #google_plus:    http://gplus.to/iven
+  #feedburner:     ivenvd
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "post" # Jekyll 2.2
+      #type: "posts" # Jekyll 2.3
+    values:
+      layout: "post"
+      comments: true
+
+# Analytics and webmaster tools stuff goes here
+#google_analytics: UA-8573264-2
+#google_verify:
+# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+bing_verify:
+
+# Links to include in footer navigation
+# For external links add external: true
+links:
+  - title: 主页
+    url: /
+    external: false
+    icon: home
+  - title: 简历
+    url: /resume
+  - title: 精华
+    url: /featured
+  - title: 分类
+    url: /categories
+  - title: 标签
+    url: /tags
+  - title: 关于
+    url: /about
+
+# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone:    Asia/Shanghai
+future:      false
+highlighter: rouge
+markdown:    kramdown
+paginate:    10
+paginate_path: "page:num"
+
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink:   /blog/:year/:month/:day/:title
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+
+  coderay:
+    coderay_line_numbers:
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: class
+
+prose:
+  rooturl: '_posts'
+  siteurl: 'http://itsuifeng.github.io/'
+  relativeLinks: 'http://itsuifeng.github.io/links.jsonp'
+  media: 'images'
+  metadata:
+    _posts:
+      - name: "published"
+        field:
+          label: "Published"
+          element: "checkbox"
+          value: "true"
+      - name: "layout"
+        field:
+          element: "hidden"
+          label: "Layout"
+          value: "post"
+      - name: "title"
+        field:
+          label: "Title"
+          element: "text"
+          value: "An Awesome Headline!"
+      - name: "description"
+        field:
+          element: "text"
+          label: "Description"
+          placeholder: "Enter Post Description"
+      - name: "headline"
+        field:
+          element: "text"
+          label: "beadline"
+          placeholder: "Enter Post Headline"
+      - name: "modified"
+        field:
+          element: "text"
+          label: "Has this page been modified?"
+          placeholder: "YYYY-MM-DD"
+      - name: "categories"
+        field:
+          element: "multiselect"
+          label: "Add categories"
+          placeholder: "Choose categories"
+          value: personal
+          options:
+            - name: "Personal"
+              value: personal
+            - name: "Engineering"
+              value: engineering
+            - name: "Physics"
+              value: physics
+            - name: "Psychology"
+              value: psychology
+            - name: "Interesting"
+              value: interesting
+            - name: "Web-Development"
+              value: webdevelopment
+          alterable: true
+      - name: "tags"
+        field:
+          element: "text"
+          label: "Tags"
+          placeholder: "Enter tags, separated by spaces"
+      - name: "imagefeature"
+        field:
+          element: "text"
+          label: "Featured Image"
+          placeholder: "somefile.jpg"
+      - name: "mathjax"
+        field:
+          element: "checkbox"
+          label: "MathJax"
+          value: false
+      - name: "featured"
+        field:
+          element: "checkbox"
+          label: "Featured?"
+          value: false
+      - name: "comments"
+        field:
+          element: "checkbox"
+          label: "Comments"
+          value: true
+
+
+include: [".htaccess"]
+exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
