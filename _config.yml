@@ -1,18 +1,18 @@
-title:            JUST DO IT
+title:             Miracles happen every day!
 description:      "生活是另一种探险"
 logo:             logo.png
 disqus_shortname: Johnnie Walker
 share:            true
 dropcap:			    true
-baseurl:          "http://itsuifeng.github.io"
+baseurl:          ""
 
 # Owner/author information
 owner:
   name:           Johnnie Walker
-  avatar:         iven.jpg
+  avatar:         favicon.ico
   email:          itsuifeng@gmail.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Awesome Dude, Awesome Life
+  description:    Life was like a box of chocolates, you never know what you’re gonna get.
   # Social networking links used in footer. Update and remove as you like.
   twitter:        Johnnie Walker
   facebook:       Johnnie Walker
@@ -56,9 +56,11 @@ links:
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Asia/Shanghai
-future:      false
-highlighter: rouge
+future:      true
+# highlighter: rouge
+highlighter: pygments
 markdown:    kramdown
+incremental: false
 paginate:    10
 paginate_path: "page:num"
 
