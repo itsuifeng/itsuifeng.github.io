@@ -57,8 +57,8 @@ links:
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Asia/Shanghai
 future:      true
-# highlighter: rouge
-highlighter: pygments
+highlighter: rouge
+# highlighter: pygments git使用jekyll3.0 开始不支持pygments
 markdown:    kramdown
 incremental: false
 paginate:    10
@@ -73,6 +73,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   enable_coderay: false
+  syntax_highlighter: rouge
 
   coderay:
     coderay_line_numbers:

@@ -6,7 +6,7 @@ headline:
 modified: 2016-09-10 03:06:10 +0800
 category: windows
 tags: [windows]
-imagefeature: covers/programmer_cover.jpg
+imagefeature: covers/Paraglider.jpg
 mathjax:
 chart:
 featured: true
